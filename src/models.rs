@@ -1,11 +1,10 @@
 use std::collections::HashMap;
 use std::time::SystemTime;
 
-use axum::body::Bytes;
 use hyper::{HeaderMap, StatusCode};
 
 pub struct CacheEntry {
-    pub response_parts: (StatusCode, HeaderMap, Bytes),
+    pub response_parts: (StatusCode, HeaderMap, bytes::Bytes),
     pub expires_at: SystemTime,
 }
 
@@ -25,14 +24,14 @@ impl Default for RateLimit {
 
 pub struct AppState {
     pub cache: HashMap<String, CacheEntry>,
-    pub rate_limit: HashMap<String, RateLimit>,
+    pub rate_limits: HashMap<String, RateLimit>,
 }
 
 impl AppState {
     pub fn new() -> Self {
         Self {
             cache: HashMap::new(),
-            rate_limit: HashMap::new(),
+            rate_limits: HashMap::new(),
         }
     }
 }

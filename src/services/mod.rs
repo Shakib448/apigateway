@@ -2,6 +2,7 @@ use crate::config::{
     CACHE_DURATION_SECS, RATE_LIMIT_REQUESTS, RATE_LIMIT_WINDOW_SECS, VALID_AUTH_TOKENS,
 };
 use crate::models::{AppState, CacheEntry};
+use bytes::Bytes;
 use hyper::{Body, HeaderMap, Response, StatusCode};
 use std::sync::Arc;
 use std::time::{Duration, SystemTime};
@@ -58,7 +59,7 @@ pub async fn get_cached_response(
 pub async fn cache_response(
     state: &Arc<RwLock<AppState>>,
     cache_key: &str,
-    response_parts: (StatusCode, HeaderMap, bytes),
+    response_parts: (StatusCode, HeaderMap, Bytes),
 ) {
     let mut state = state.write().await;
     state.cache.insert(

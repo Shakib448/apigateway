@@ -7,6 +7,7 @@ name = "api-gateway"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "bytes",
  "http-body-util",
  "hyper 0.14.32",
  "hyper-util",
